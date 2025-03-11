@@ -2,6 +2,8 @@
 import express from 'express';
 import mongoose  from 'mongoose';
 import bcrypt from 'bcrypt';
+import session from 'express-session';
+import morgan from 'morgan';
 
 // module imports
 import connectionString from './env.json'  with {type: "json"}
@@ -10,11 +12,24 @@ import { saveUser, getAllData, getById, validateLogin } from './controllers/tool
 
 
 const app = express()
+
 // serve static files for app to access
 app.use(express.static("public"))
 app.use(express.json())
+app.use(morgan('dev'))
+app.use(session({
+    secret: "cookieSecretGenerated",
+    // avoid saving randomised sessions`
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: 60000 * 60, 
+        signed: true,
+    }
+}))
+
 app.set("view engine", "ejs")
-const port = 8080
+const port = 3000
 const dbConnection = connectionString.connectionString;
 
 
@@ -26,7 +41,7 @@ async function databaseConnection() {
         console.log('<----connnection established---->')
 
         app.listen(port, ()=> {
-            console.log('[listening....] on http://localhost:8080')
+            console.log('[listening....] on http://localhost:3000/home')
         })
 
     } catch (err) {
@@ -62,7 +77,7 @@ app.post('/regis/user',  async (req, res) => {
 })
 
 
-app.get('/a', async (req, res) => {
+app.get('/admin', async (req, res) => {
     const reply = await getAllData();
 
     res.send(reply)
@@ -83,14 +98,57 @@ app.get('/login', (req, res) => {
 })
 
 
+app.get('/base', (req, res) => {
+    console.log(req.session)
+    console.log(req.session.id)
+    req.session.visited = t 
+    rue
+    res.send('ro')
+})
+
 
 app.post('/user/login', async (req, res) => {
     const loginCredenials = req.body;
+    
     console.log(loginCredenials)
+
     const isCredValid = await validateLogin(loginCredenials)
+
+    if (isCredValid === 0 || isCredValid === 1) {
+        console.log('INVALID CREDS')
+        res.send('NO')
+        return;
+    }
+
     const firstName = await isCredValid.data.firstName;
-    console.log(firstName)
     const lastName = await isCredValid.data.lastName;
     const status = await isCredValid.status
-    res.render('home', {firstName: firstName, lastName: lastName})
+
+    console.log('login session ==>', req.session)
+    req.session.user = {firstName: firstName, lastName: lastName}
+    res.redirect("/home")
 })
+
+
+app.get('/home', (req, res) => {
+    if (!req.session.user) {
+        console.log('not allowed access gang')
+        return res.redirect('/login')
+    }
+
+    res.render('home', {user: req.session.user})
+})
+
+
+app.get('/docs', function (req, res, next) {
+    if (req.session.views) {
+        req.session.views++
+        res.end('views -->' + req.session.views)
+        // res.write('expiration -->', req.session.cookie.maxAge / 1000)
+        // res.end()
+    } else {
+        req.session.views = 1
+        res.end('senzu beaned your session views')
+    }
+})
+

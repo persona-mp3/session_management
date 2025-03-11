@@ -1,0 +1,30 @@
+import 'session' from 'express-session'
+
+// session data is not saved in the cookie, except the ID
+// the session itself is stored on the server
+app.use(session({
+
+    // use crypto.creareHmac
+    secret: "cookieSecret",
+
+
+    // forces the session to be solved into session store
+    resave: false,
+    // a session is saveUninitialised when it is new but not modified
+    saveUninitialised: false,
+
+
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        // cookie expires in one hour
+        maxAge: 60000 * 60,
+        secure: true,
+        
+    },
+
+    genid: fn(req) {
+        // for session id
+        return genuuid()
+    }
+}))

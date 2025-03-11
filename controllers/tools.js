@@ -83,14 +83,14 @@ export async function validateLogin(loginCredenials) {
         const isEmailFound = await User.find({email: `${emailCred}`})
 
         if (isEmailFound.length === 0 || isEmailFound === undefined) {
-            return 'user does not exist on the system'
+            return 0
         }
 
         const userCredentials = isEmailFound[0]
 
         // check the password credentials against each other
         if (passwordCred !== userCredentials.password) {
-            return 'invalid credentials'
+            return 1
         }
 
         return {status: 300, data: userCredentials, message: "User credentails are valid"}
