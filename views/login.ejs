@@ -4,16 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>log in</title>
+    <link rel="stylesheet" href="/css/styles.css">
     <script defer src="/js/index.js"></script>
 </head>
 <body>
 
 
-    <form  class="login-form">
-        <input type="text" name="email" value="airmax@gmail.com">
-        <input type="text" name="password" value="password1234">
-        <button>Log in</button>
-    </form>
+    <nav>
+        <h3 class="logo">healthadvice</h3>
+
+        <div class="nav-links">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link cta-link" >Login</a>
+        </div>
+    </nav>
+
+    <p class="alert">Successful</p>
+
+    <main>
+        <section class="headline">
+
+            <p class="cta-header">Sign into your account</p>
+            <p class="cta-text">Don't have an account yet? <a class="help" href="/signup">Click here to create an account.</a><br>See the latest updates and information tailored to your current status</p>
+
+            <form  class="login-form">
+                <p class="err">  </p>
+                <div class="form-section">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" value="airmax@gmail.com" id="email">
+
+                </div>
+
+
+                <div class="form-section">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" value="password1234" id="password">
+
+                </div>
+
+                <a href="/signup" class="help y">Forgot Password?</a>
+
+                <button type="submit" class="cta-btn">Log in</button>
+            </form>
+
+        </section>
+    </main>
+
 
 
 

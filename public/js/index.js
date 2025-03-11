@@ -1,5 +1,9 @@
 const form = document.querySelector('form');
 const loginForm = document.querySelector('.login-form');
+const alertFeedback = document.querySelector('.alert')
+const errorMessage = document.querySelector('.err')
+
+// errorMessage.innerText = `       `
 
 async function sendData(form) {
     try {
@@ -51,7 +55,7 @@ async function logInRequest(loginForm) {
             console.log(`${credential}: ${value}`)
         }
 
-        const repsonse  = await fetch('/user/login', {
+        const response  = await fetch('/user/login', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -59,9 +63,17 @@ async function logInRequest(loginForm) {
 
             body: JSON.stringify(loginData)
         })
+        
+        const data = await response.json()
 
+        if (response.status === 401){
+            let responseMessage = data.problem
+            errorMessage.innerText = `${responseMessage}`
+            return;
 
-        console.log("response from server ---->", response)
+        }
+        console.log("response from server ---->", data)
+        return data
 
         
     } catch(err) {
@@ -81,4 +93,13 @@ loginForm.addEventListener("submit", async (evt) => {
     evt.preventDefault()
 
     const data = await logInRequest(loginForm)
+    if (data === undefined) {
+        // invalid credentials
+        return;
+    }
+
+    alertFeedback.classList.add('active-alert');
+    setTimeout(()=> {
+        alertFeedback.classList.remove('active-alert')
+    }, 5000)
 })

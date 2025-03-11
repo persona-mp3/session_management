@@ -41,7 +41,7 @@ async function databaseConnection() {
         console.log('<----connnection established---->')
 
         app.listen(port, ()=> {
-            console.log('[listening....] on http://localhost:3000/home')
+            console.log('[listening....] on http://localhost:3000/login')
         })
 
     } catch (err) {
@@ -83,6 +83,16 @@ app.get('/admin', async (req, res) => {
     res.send(reply)
 })
 
+app.get('/home', (req, res) => {
+    if (!req.session.user) {
+        console.log('not allowed access gang')
+        return res.redirect('/login')
+    }
+
+    console.log(req.session.id)
+    res.render('home', {user: req.session.user})
+})
+
 
 app.get('/b', async (req, res) => {
     const email = {email: "funland@gmail.com"}
@@ -101,22 +111,20 @@ app.get('/login', (req, res) => {
 app.get('/base', (req, res) => {
     console.log(req.session)
     console.log(req.session.id)
-    req.session.visited = t 
-    rue
+    req.session.visited = true
     res.send('ro')
 })
 
 
 app.post('/user/login', async (req, res) => {
     const loginCredenials = req.body;
-    
     console.log(loginCredenials)
 
     const isCredValid = await validateLogin(loginCredenials)
 
     if (isCredValid === 0 || isCredValid === 1) {
         console.log('INVALID CREDS')
-        res.send('NO')
+        res.status(401).send( {problem: "Invalid credentials"})
         return;
     }
 
@@ -130,14 +138,6 @@ app.post('/user/login', async (req, res) => {
 })
 
 
-app.get('/home', (req, res) => {
-    if (!req.session.user) {
-        console.log('not allowed access gang')
-        return res.redirect('/login')
-    }
-
-    res.render('home', {user: req.session.user})
-})
 
 
 app.get('/docs', function (req, res, next) {
