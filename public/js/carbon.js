@@ -1,0 +1,257 @@
+// import envJSON from '../../env.json' assert {type: "json"};
+// import { sandbox } from '../../controllers/tools.js';
+
+// const API_KEY = envJSON.API_KEY;
+// const estimateId = `9b1e2132-6216-4c64-84b2-23cf31eb472d`
+// const url = new URL(`https://www.carboninterface.com/api/v1/estimates/${estimateId}`)
+// console.log(API_KEY);
+
+
+// const sandbox = async function() {
+//     try { 
+//         const response = await fetch(url, {
+//             method: "GET",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Authorization": `Bearer ${API_KEY}`,
+//             }
+//         });
+
+//         const data = await response.json()
+
+//         console.log('RESPONSE DATA --->', data)
+    
+
+//     } catch (err) {
+//         console.warn(err)
+//     }
+
+// }
+
+// await sandbox()
+
+
+const resp = async function() {
+
+    try {
+        const repo = await fetch('/sandbox', {
+            method: 'GET'
+        })
+    
+        const data = await repo.json()
+        console.log('response from server --->', data)
+    
+     } catch (err) {
+        console.warn('error occured? --->', err)
+    }
+
+}
+
+
+import questionnaire from './dynamic_form.json' assert {type: "json"}
+console.log(questionnaire)
+const questions = questionnaire.Questions
+// console.log(questions[0])
+
+// const form = document.querySelector('form')
+const headQuestion = document.querySelector('.question')
+// const nextBtn = document.querySelector('a')
+
+
+const questionIterator = function (counter) {
+    const question = questions[counter]
+    console.log('log counter --->', counter)
+    // const options = questionOne.options
+    return question
+
+}
+
+
+// function dyanmicQuestions() {
+//     const form = document.querySelector('form')
+//     let counter = 0;
+
+//     const question = questionIterator(counter)
+
+//     headQuestion.innerText = `${question.question}`
+//     const options = question.options
+
+
+
+//     options.forEach((option) => {
+//         console.log(option)
+//         const input = document.createElement('input')
+//         input.value = `${option}`
+
+//         document.querySelector('body').appendChild(input)
+
+        
+//     })
+
+//     let counter2 = 0
+//     for (let i=0; i <=5; i++) {
+        
+//         form.addEventListener('submit', (evt) => {
+//             evt.preventDefault()
+//             counter2++
+//             console.log('counter---->', counter2, i)
+//         })
+//     }
+
+
+//     // form.addEventListener('click', (evt) => {
+//     //     let counter = 0;
+
+//     //     evt.preventDefault();
+//     //     ++counter
+//     //     console.log('counter2--->', counter)
+
+
+
+//     // })
+//     // listen for selected options
+
+
+// }
+
+// dyanmicQuestions()
+
+const iterator = function (increment) {
+    let counter = 0
+    const form = document.querySelector('form')
+    const button = document.querySelector('button')
+    const header = document.querySelector('h3')
+    // // this contains an object with 2 porperties with the second been an array
+    // let currentQuestion = questions[counter]
+    // const setQuestion = currentQuestion.question
+    // // array[str]
+    // const setOptions = currentQuestion.options
+    // console.log(currentQuestion, setQuestion, setOptions)
+
+
+
+
+
+
+    // header.innerText = setQuestion;
+    // for (let i=0; i < setOptions.length; i++) {
+    //     const input = document.createElement('input')
+    //     input.value = setOptions[i]
+
+    //     document.querySelector('body').appendChild(input)
+    // }
+
+    button.addEventListener('click', () => {
+        counter++
+        console.log('button clicked,questions should change', counter)
+
+
+        const form = document.querySelector('form')
+        const button = document.querySelector('button')
+        const header = document.querySelector('h3')
+        // this contains an object with 2 porperties with the second been an array
+        let currentQuestion = questions[counter]
+        const setQuestion = currentQuestion.question
+        // array[str]
+        const setOptions = currentQuestion.options
+        console.log(currentQuestion, setQuestion, setOptions)
+    
+    
+    
+    
+    
+    
+        header.innerText = setQuestion;
+        for (let i=0; i < setOptions.length; i++) {
+            const input = document.createElement('input')
+            input.value = setOptions[i]
+    
+            document.querySelector('body').appendChild(input)
+        }
+    
+        
+        // iterator(increment)
+    })
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function forLoop() {
+    const arry = ['item1','item2', 'item3', 'item4', 'item5']
+
+    const button = document.querySelector('button');
+    // for (let i = 0; i < arry.length; i++){
+
+    //     button.addEventListener('click', () => {
+    //         console.log('i++', i)
+    //         console.log(arry[i])
+    //     })
+    // }
+    let counter = 0
+    button.addEventListener('click', (evt) => {
+        if (counter === arry.length) {
+            return;
+        }
+
+        const input = document.createElement('input')
+        input.value = arry[counter]
+        counter++
+        console.log('counter increased --->', counter)
+        document.querySelector('body').appendChild(input)
+    })
+}
+
+// forLoop()
+let increment = 0
+// iterator(increment)
+
+const createEl = () => {
+    let p = document.createElement('p')
+    return p
+}
+
+
+function closureFunc() {
+    let counter = 0
+    let array = ['one', 'two', 'three','four', 'five', 'six']
+    let currentQuestion = questions[counter]
+    let body = document.querySelector('body')
+    const setQuestion = currentQuestion.question
+    const setOptions = currentQuestion.options
+    const header = document.querySelector('h3')
+    // console.log(setOptions)
+
+
+    function updateCounter() {
+        const button = document.querySelector('button')
+        button.addEventListener('click', (e) => {
+            e.preventDefault()
+            const p = createEl()
+            p.innerText = setOptions[counter]
+            header.innerText = setQuestion
+            body.appendChild(p)
+            counter++
+            console.log('current value of counter -->', counter)
+        })
+    }
+
+    updateCounter()
+}
+
+closureFunc()

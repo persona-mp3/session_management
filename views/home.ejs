@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <script defer type="module" src="/js/carbon.js"></script>
 </head>
 <body>
     <p>dashboard</p>
     <h2>Welcome, <%= user.firstName %></h2>
+
+    <form>
+        <h3>Question</h3>
+        <input type="checkbox" name="question" class="question1">
+        <button type="button">Next</button>
+    </form>
 </body>
 </html>

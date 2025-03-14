@@ -8,7 +8,7 @@ import morgan from 'morgan';
 // module imports
 import connectionString from './env.json'  with {type: "json"}
 import {User} from './models/userSchema.js'
-import { saveUser, getAllData, getById, validateLogin } from './controllers/tools.js';
+import { saveUser, getAllData, getById, validateLogin, sandbox } from './controllers/tools.js';
 
 
 const app = express()
@@ -93,6 +93,24 @@ app.get('/home', (req, res) => {
     res.render('home', {user: req.session.user})
 })
 
+const user = {firstName: 'John Machavelli'}
+
+app.get('/carbon', (req, res) => {
+
+    const user = {firstName: 'John Machavelli'}
+    res.render('home', {user})
+})
+
+
+
+app.get('/sandbox', async (req, res) => {
+    const data = await sandbox()
+    res.send(data)
+})
+
+
+
+
 
 app.get('/b', async (req, res) => {
     const email = {email: "funland@gmail.com"}
@@ -134,7 +152,8 @@ app.post('/user/login', async (req, res) => {
 
     console.log('login session ==>', req.session)
     req.session.user = {firstName: firstName, lastName: lastName}
-    res.redirect("/home")
+    
+    res.redirect(302, "/home")
 })
 
 
