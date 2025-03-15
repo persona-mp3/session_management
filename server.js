@@ -31,6 +31,9 @@ app.use(session({
 app.set("view engine", "ejs")
 const port = 3000
 const dbConnection = connectionString.connectionString;
+// placeholders
+const user = {firstName: 'John Machavelli'}
+
 
 
 async function databaseConnection() {
@@ -93,23 +96,12 @@ app.get('/home', (req, res) => {
     res.render('home', {user: req.session.user})
 })
 
-const user = {firstName: 'John Machavelli'}
-
-app.get('/carbon', (req, res) => {
-
-    const user = {firstName: 'John Machavelli'}
-    res.render('home', {user})
-})
-
 
 
 app.get('/sandbox', async (req, res) => {
     const data = await sandbox()
     res.send(data)
 })
-
-
-
 
 
 app.get('/b', async (req, res) => {
@@ -131,6 +123,19 @@ app.get('/base', (req, res) => {
     console.log(req.session.id)
     req.session.visited = true
     res.send('ro')
+})
+
+
+app.get('/quiz', (req, res) => {
+
+    // if (!req.session.user) {
+    //     console.log('User has not logged in yet')
+    //     return res.redirect('/login')
+    // }
+
+    // console.log(req.session.id)
+    res.render('quiz')
+
 })
 
 

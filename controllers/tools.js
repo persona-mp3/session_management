@@ -1,6 +1,7 @@
 import { User } from '../models/userSchema.js'
 import bcrypt from 'bcrypt';
 import envJSON from '../env.json' with {type: "json"};
+// import quizJson from '../dynamic_form.json' with {type: "json"};
 
 
 
@@ -278,3 +279,13 @@ export const vehicleMakes = async function() {
 
 await vehicleMakes()
 
+
+
+export const sendQuizJson = function(){
+    const questionArray = quizJson.Questions
+    console.log(questionArray)
+    return questionArray
+}
+
+
+// sendQuizJson()

@@ -4,16 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <script defer type="module" src="/js/carbon.js"></script>
+    <link rel="stylesheet" href="/css/base.css">
+    <script defer type="module" src="/js/home.js"></script>
 </head>
 <body>
-    <p>dashboard</p>
-    <h2>Welcome, <%= user.firstName %></h2>
 
-    <form>
+
+    <nav class="flex__row">
+        <div class="logo-div"><h2 class="logo">cartiercrashers</h2></div>
+
+        <div class="nav-links flex__row">
+            <a href="#">Services</a>
+            <a href="#">About us</a>
+            <button  class="cta-btn">Schedule now</button>
+        </div>
+    </nav>
+
+
+    <main>
+        <section class="hero two__column__flex">
+            <div class="hero-body flex__column">
+                <p class="hero-header">Cartier Crashers brings to you exlcusive cartier offers</p>
+
+                <p class="hero-text">Cartier Crashers offer their clients with limited edition and real-time updates</p>
+
+                <div class="cta-container flex__row">
+                    <button class="cta-btn">See offers</button>
+
+                    <button class="sec-btn">Explore</button>
+                </div>
+            </div>
+            <div class="hero-img"><img src="/imgs/img2.jpg" alt="Solar Panel Installation"></div>
+        </section>
+
+
+        <section class="services">
+            <p class="header">Collections</p>
+            <div class="service-container flex__row">
+
+
+                <div class="card one__column__flex card1">
+                    <div class="card-img"><img src="/imgs/side.jpg" alt=""></div>
+
+                    <div class="card-body">
+                        <span class="icon"><img src="/icons/arrow.svg" alt=""></span>
+                        <p class="card-desc">VUJA DE 3</p>
+                    </div>
+
+                </div>
+
+
+                <div class="card one__column__flex card2">
+                    <div class="card-img"><img src="/imgs/forward.jpg" alt=""></div>
+
+                    <div class="card-body">
+                        <span class="icon"><img src="/icons/arrow.svg" alt=""></span>
+                        <p class="card-desc">VUJA DE 4</p>
+                    </div>
+
+                </div>
+
+
+                <div class="card one__column__flex card3">
+                    <div class="card-img"><img src="/imgs/right.jpg" alt=""></div>
+
+                    <div class="card-body">
+                        <span class="icon"><img src="/icons/arrow.svg" alt=""></span>
+                        <p class="card-desc">VUJA DE 5</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </section>
+
+        <section class="carbon-footprint two__column__flex">
+            <div class="hero-body flex__column">
+                <p class="hero-header">What kind of customer are you?</p>
+
+                <p class="hero-text">Answer a series of questionnaires and find out what you like most about this website. <br>Answer some questions and get a personalised result at the end</p>
+
+                <div class="cta-container flex__row carbon2">
+                    <button class="cta-btn" id="question-redirect">Start</button>
+                </div>
+            </div>
+            <div class="hero-img"><img src="/imgs/boy2000.jpg" alt="Solar Panel Installation"></div>
+        </section>
+
+
+
+    </main>
+
+
+
+
+    <!-- <h3>Welcome, <%= user.firstName %></h3> -->
+
+
+
+    <!-- <form>
         <h3>Question</h3>
         <input type="checkbox" name="question" class="question1">
         <button type="button">Next</button>
-    </form>
+    </form> -->
 </body>
 </html>
