@@ -4,7 +4,6 @@
 // const API_KEY = envJSON.API_KEY;
 // const estimateId = `9b1e2132-6216-4c64-84b2-23cf31eb472d`
 // const url = new URL(`https://www.carboninterface.com/api/v1/estimates/${estimateId}`)
-// console.log(API_KEY);
 
 
 // const sandbox = async function() {
@@ -255,3 +254,38 @@ function closureFunc() {
 }
 
 closureFunc()
+
+
+
+
+
+// so a querySelectorAll does not return an array
+// but an Object, 'NodeList' with iterator methiods including
+// forEach, entries, values, keys and more'
+// so using a for-loop and iterating with index doesn't work directly
+// unless the .keys() method is used
+// USE OBJECT.GETPROTOTYPEOF('el') to see all
+
+
+
+const pTag = document.querySelectorAll('.option');
+
+if (!Array.isArray(pTag)) {
+    console.log(false,typeof pTag)
+} else {console.log(true)}
+
+
+console.log(Object.getPrototypeOf(pTag))
+let array = ['one', 'two', 'three', 'four']
+
+for (let keys of Object.keys(pTag)) {
+    const currVal = pTag[keys]
+
+    currVal.innerText = array[keys]
+
+    if (currVal.value !== undefined) {
+        currVal.value = 'Input El'
+    }
+    // console.log(currVal.innerText = 'changed')
+}
+// console.log(pTag[keys])

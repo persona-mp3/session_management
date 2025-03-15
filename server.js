@@ -44,7 +44,7 @@ async function databaseConnection() {
         console.log('<----connnection established---->')
 
         app.listen(port, ()=> {
-            console.log('[listening....] on http://localhost:3000/login')
+            console.log('[listening....] on http://localhost:3000/quiz')
         })
 
     } catch (err) {
@@ -87,10 +87,10 @@ app.get('/admin', async (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-    if (!req.session.user) {
-        console.log('not allowed access gang')
-        return res.redirect('/login')
-    }
+    // if (!req.session.user) {
+    //     console.log('not allowed access gang')
+    //     return res.redirect('/login')
+    // }
 
     console.log(req.session.id)
     res.render('home', {user: req.session.user})

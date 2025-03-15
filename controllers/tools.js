@@ -177,6 +177,7 @@ export const postSandbox = async function() {
 
 
 
+// for more information on the docs, visit https://docs.carboninterface.com/#/?id=electricity
 
 export const electricEstimate = async function() {
     const payload = {
@@ -215,11 +216,16 @@ const headers = new Headers()
 headers.append("Content-Type", "application/json")
 headers.append("Authorization", `Bearer ${API_KEY}`)
 
+
+// for more information on the docs, visit https://docs.carboninterface.com/#/?id=shipping
+// units: mi, lb
+// user will provide: weight_value, distance_value, transport_method
+
 export const shippingEstimate = async function () {
     const payload = {
         type: "shipping",
         // tonnes, kg and lb are also accepted
-        weight_unit: "g",
+        weight_unit: "lb",
         weight_value: 30,
         // miles or kilometers
         distance_unit: "mi",
@@ -280,12 +286,3 @@ export const vehicleMakes = async function() {
 await vehicleMakes()
 
 
-
-export const sendQuizJson = function(){
-    const questionArray = quizJson.Questions
-    console.log(questionArray)
-    return questionArray
-}
-
-
-// sendQuizJson()
